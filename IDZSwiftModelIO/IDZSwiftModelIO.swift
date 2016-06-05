@@ -20,11 +20,7 @@ extension MDLVertexAttribute {
     }
 }
 
-extension MDLVertexBufferLayout  {
-    @objc override public var debugDescription : String {
-        return "MDLVertexBufferLayout: { stride: \(self.stride) }"
-    }
-}
+
 
 extension MDLVertexAttributeData {
     @objc override public var debugDescription : String {
@@ -205,7 +201,22 @@ extension MDLMaterialSemantic: CustomDebugStringConvertible {
 /**
  Conformance to `CustomDebugStringConvertible`
  */
+extension MDLVertexBufferLayout  {
+    /**
+     Provides developer-readable description.
+     */
+    @objc override public var debugDescription : String {
+        return "MDLVertexBufferLayout: { stride: \(self.stride) }"
+    }
+}
+
+/**
+ Conformance to `CustomDebugStringConvertible`
+ */
 extension MDLVertexFormat: CustomDebugStringConvertible {
+    /**
+    Provides developer-readable description.
+    */
     public var debugDescription : String {
         switch(self) {
         case .Invalid: return "Invalid"
