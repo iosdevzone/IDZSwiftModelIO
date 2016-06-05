@@ -5,40 +5,21 @@
 //  Created by Danny Keogan on 5/26/16.
 //  Copyright © 2016 iOS Developer Zone. All rights reserved.
 //
+//
+// Dump the case statements into text file
+// awk 'NF { print "case ."$2": return \""$2"\""; }' MDLVertexFormat.txt > MDLVertexFormat.out.txt
+// Copy and paste
+//
 
 import ModelIO
 
-// 
-// Dump the case statements into text file
-// awk 'NF { print "case ."$2": return \""$2"\""; }' MDLVertexFormat.txt > MDLVertexFormat.out.txt
-// Copy and paste 
-//
-
-extension MDLVertexAttribute {
-    @objc override public var debugDescription : String {
-        return "MDLVertexAttribute: { name: \(self.name), format: \(self.format) offset: \(self.offset), bufferIndex: \(self.bufferIndex) }"
-    }
-}
-
-
-
-extension MDLVertexAttributeData {
-    @objc override public var debugDescription : String {
-        return "MDLVertexAttributeData: { dataStart: \(self.dataStart), stride: \(self.stride), format: \(format) }"
-    }
-    
-}
-
-extension MDLMeshBufferType : CustomDebugStringConvertible {
-    public var debugDescription: String {
-        switch self {
-        case .Vertex: return "Vertex"
-        case .Index: return "Index"
-        }
-    }
-}
-
-extension MDLGeometryType: CustomDebugStringConvertible {
+/**
+ Provides improved debugging information.
+ */
+extension MDLGeometryType : CustomDebugStringConvertible {
+    /**
+     Provides developer-readable description.
+     */
     public var debugDescription : String {
         switch self {
         case .TypePoints: return "TypePoints"
@@ -52,7 +33,7 @@ extension MDLGeometryType: CustomDebugStringConvertible {
 }
 
 /**
- Refining MDLVertexDescriptor
+ Provides improved debugging information.
  */
 extension MDLVertexDescriptor {
     /**
@@ -65,35 +46,13 @@ extension MDLVertexDescriptor {
     }
 }
 
-
-extension MDLMesh {
-    public func dumpMaterials() {
-        for submesh in (self.submeshes.map { $0 as! MDLSubmesh }) {
-            let material = submesh.material!
-            for propertyIndex in 0..<material.count {
-                if let property = material[propertyIndex] {
-                    /* Shouldn't need explicit `.debugDescription` but do because Swift */
-                    debugPrint("[\(propertyIndex)]: \(property.debugDescription)")
-                }
-                else {
-                    debugPrint("[\(propertyIndex)]: nil")
-                    
-                }
-            }
-            debugPrint("Using material[\"specularExponent\"]=\(material["specularExponent"])")
-            debugPrint("Using material.propertyWithSemantic(.SpecularExponent)=\(material.propertyWithSemantic(.SpecularExponent))")
-        }
-    }
-}
-
-extension MDLSubmesh /* : CustomDebugStringConvertible */ {
-    override public var debugDescription: String {
-        return "MDLSubmesh: { indexBuffer: \(self.indexBuffer), indexCount: \(self.indexCount), indexType:\(self.indexType), geometryType:\(self.geometryType), material:\(self.material) topology:\(self.topology), name: \(self.name) }"
-        
-    }
-}
-
+/**
+ Provides improved debugging information.
+ */
 extension MDLMaterial /* : CustomDebugStringConvertible */ {
+    /**
+     Provides developer-readable description.
+     */
     override public var debugDescription: String {
         var properties = [String]()
         for property in self.idz_properties {
@@ -105,7 +64,7 @@ extension MDLMaterial /* : CustomDebugStringConvertible */ {
     }
 }
 /**
- Provides useful debugging information about an `MDLMaterialProperty`
+ Provides improved debugging information.
  */
 extension MDLMaterialProperty {
     /**
@@ -116,7 +75,7 @@ extension MDLMaterialProperty {
         return self.detailedDescription
     }
     /**
-     A human readible string represeantion of this value for debugging purposes.
+     Provides developer-readable description.
      */
     public var detailedDescription: String {
         var value = ""
@@ -135,12 +94,13 @@ extension MDLMaterialProperty {
         return "MDLMaterialProperty: { name:\"\(self.name)\", semantic:\(self.semantic.debugDescription), type:\(self.type.debugDescription), value:\(value)}"
     }
 }
+
 /**
- Provides useful debugging information about an `MDLMaterialPropertyType`
+ Provides improved debugging information.
  */
-extension MDLMaterialPropertyType: CustomDebugStringConvertible {
+extension MDLMaterialPropertyType: CustomDebugStringConvertible  {
     /**
-     A human readible string represeantion of this value for debugging purposes.
+     Provides developer-readable description.
      */
     public var debugDescription: Swift.String {
         switch self {
@@ -158,11 +118,11 @@ extension MDLMaterialPropertyType: CustomDebugStringConvertible {
     }
 }
 /**
- Provides useful debugging information about an `MDLMaterialSemantic`
+ Provides improved debugging information.
  */
 extension MDLMaterialSemantic: CustomDebugStringConvertible {
     /**
-     A human readible string represeantion of this value for debugging purposes.
+     Provides developer-readable description.
      */
     public var debugDescription: String {
         switch self {
@@ -199,9 +159,88 @@ extension MDLMaterialSemantic: CustomDebugStringConvertible {
 }
 
 /**
- Conformance to `CustomDebugStringConvertible`
+ Provides improved debugging information.
  */
-extension MDLVertexBufferLayout  {
+extension MDLMesh {
+    /**
+     Dumps developer-readable description.
+     */
+    public func dumpMaterials() {
+        for submesh in (self.submeshes.map { $0 as! MDLSubmesh }) {
+            let material = submesh.material!
+            for propertyIndex in 0..<material.count {
+                if let property = material[propertyIndex] {
+                    /* Shouldn't need explicit `.debugDescription` but do because Swift */
+                    debugPrint("[\(propertyIndex)]: \(property.debugDescription)")
+                }
+                else {
+                    debugPrint("[\(propertyIndex)]: nil")
+                    
+                }
+            }
+            debugPrint("Using material[\"specularExponent\"]=\(material["specularExponent"])")
+            debugPrint("Using material.propertyWithSemantic(.SpecularExponent)=\(material.propertyWithSemantic(.SpecularExponent))")
+        }
+    }
+}
+
+/**
+ Provides improved debugging information.
+ */
+extension MDLMeshBufferType : CustomDebugStringConvertible {
+    /**
+     Provides developer-readable description.
+     */
+    public var debugDescription: String {
+        switch self {
+        case .Vertex: return "Vertex"
+        case .Index: return "Index"
+        }
+    }
+}
+
+/**
+ Provides improved debugging information.
+ */
+extension MDLSubmesh /* : CustomDebugStringConvertible */ {
+    /**
+     Provides developer-readable description.
+     */
+    override public var debugDescription: String {
+        return "MDLSubmesh: { indexBuffer: \(self.indexBuffer), indexCount: \(self.indexCount), indexType:\(self.indexType), geometryType:\(self.geometryType), material:\(self.material) topology:\(self.topology), name: \(self.name) }"
+        
+    }
+}
+
+/**
+ Provides improved debugging information.
+ */
+extension MDLVertexAttribute {
+    /**
+     Provides developer-readable description.
+     */
+    @objc override public var debugDescription : String {
+        return "MDLVertexAttribute: { name: \(self.name), format: \(self.format) offset: \(self.offset), bufferIndex: \(self.bufferIndex) }"
+    }
+}
+
+/**
+ Provides improved debugging information.
+ */
+extension MDLVertexAttributeData {
+    /**
+     Provides developer-readable description.
+     */
+    @objc override public var debugDescription : String {
+        return "MDLVertexAttributeData: { dataStart: \(self.dataStart), stride: \(self.stride), format: \(format) }"
+    }
+    
+}
+
+/**
+ Provides improved debugging information.
+ */
+extension MDLVertexBufferLayout {
     /**
      Provides developer-readable description.
      */
@@ -211,7 +250,7 @@ extension MDLVertexBufferLayout  {
 }
 
 /**
- Conformance to `CustomDebugStringConvertible`
+ Provides improved debugging information.
  */
 extension MDLVertexFormat: CustomDebugStringConvertible {
     /**
