@@ -13,24 +13,7 @@
 
 import ModelIO
 
-/**
- Provides improved debugging information.
- */
-extension MDLGeometryType : CustomDebugStringConvertible {
-    /**
-     Provides developer-readable description.
-     */
-    public var debugDescription : String {
-        switch self {
-        case .TypePoints: return "TypePoints"
-        case .TypeLines: return "TypeLines"
-        case .TypeQuads: return "TypeQuads"
-        case .TypeTriangles: return "TypeTriangles"
-        case .TypeTriangleStrips: return "TypeTriangleStrips"
-        case .TypeVariableTopology: return "TypeVariableTopology"
-        }
-    }
-}
+
 
 /**
  Provides improved debugging information.
@@ -95,6 +78,27 @@ extension MDLMaterialProperty {
     }
 }
 
+/* MDLGeometryType is an enum : Int */
+/**
+ Provides improved debugging information.
+ */
+extension MDLGeometryType : CustomDebugStringConvertible {
+    /**
+     Provides developer-readable description.
+     */
+    public var debugDescription : String {
+        switch self {
+        case .TypePoints: return "TypePoints"
+        case .TypeLines: return "TypeLines"
+        case .TypeQuads: return "TypeQuads"
+        case .TypeTriangles: return "TypeTriangles"
+        case .TypeTriangleStrips: return "TypeTriangleStrips"
+        case .TypeVariableTopology: return "TypeVariableTopology"
+        }
+    }
+}
+
+/* MDLMaterialPropertyType is an enum : UInt */
 /**
  Provides improved debugging information.
  */
@@ -248,7 +252,7 @@ extension MDLVertexBufferLayout {
         return "MDLVertexBufferLayout: { stride: \(self.stride) }"
     }
 }
-
+/* MDLVertexFormat is an enum : UInt with *! */
 /**
  Provides improved debugging information.
  */
